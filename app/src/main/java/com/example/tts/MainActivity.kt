@@ -64,6 +64,8 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     // 处理识别出来的 languageCode 是 und 或者
                                     // languageCode 不是文本对应的语言且系统没有对应的语言包的情况
+                                    // languageCode 是文本对应的语言且系统没有对应的语言包的情况也会调用该处理，
+                                    // 该情况无法避免，因为此处无法知道识别的 languageCode 是否正确。
                                     identifyPossibleLanguages(data.content)
                                 } else {
                                     val code = textToSpeech?.speak(
