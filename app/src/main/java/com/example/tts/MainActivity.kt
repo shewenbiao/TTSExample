@@ -101,6 +101,42 @@ class MainActivity : ComponentActivity() {
         }
 
         viewModel.getData()
+
+        binding.tvSpeed1.setOnClickListener {
+            it.setBackgroundResource(R.drawable.shape_bg_item_list)
+            binding.tvSpeed2.setBackgroundDrawable(null)
+            binding.tvSpeed3.setBackgroundDrawable(null)
+            binding.tvSpeed4.setBackgroundDrawable(null)
+
+            textToSpeech?.setSpeechRate(binding.tvSpeed1.text.toString().toFloat())
+        }
+
+        binding.tvSpeed2.setOnClickListener {
+            it.setBackgroundResource(R.drawable.shape_bg_item_list)
+            binding.tvSpeed1.setBackgroundDrawable(null)
+            binding.tvSpeed3.setBackgroundDrawable(null)
+            binding.tvSpeed4.setBackgroundDrawable(null)
+
+            textToSpeech?.setSpeechRate(binding.tvSpeed2.text.toString().toFloat())
+        }
+
+        binding.tvSpeed3.setOnClickListener {
+            it.setBackgroundResource(R.drawable.shape_bg_item_list)
+            binding.tvSpeed1.setBackgroundDrawable(null)
+            binding.tvSpeed2.setBackgroundDrawable(null)
+            binding.tvSpeed4.setBackgroundDrawable(null)
+
+            textToSpeech?.setSpeechRate(binding.tvSpeed3.text.toString().toFloat())
+        }
+
+        binding.tvSpeed4.setOnClickListener {
+            it.setBackgroundResource(R.drawable.shape_bg_item_list)
+            binding.tvSpeed1.setBackgroundDrawable(null)
+            binding.tvSpeed2.setBackgroundDrawable(null)
+            binding.tvSpeed3.setBackgroundDrawable(null)
+
+            textToSpeech?.setSpeechRate(binding.tvSpeed4.text.toString().toFloat())
+        }
     }
 
     private fun identifyPossibleLanguages(content: String) {
