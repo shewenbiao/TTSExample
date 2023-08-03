@@ -42,12 +42,33 @@
 
     <Spinner
         android:id="@+id/speed_spinner"
-        app:layout_constraintStart_toEndOf="@id/tv_speed_title"
-        app:layout_constraintTop_toTopOf="@id/tv_speed_title"
-        app:layout_constraintBottom_toBottomOf="@id/tv_speed_title"
         android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/shape_bg_item_list"
-        android:layout_height="wrap_content" />
+        app:layout_constraintBottom_toBottomOf="@id/tv_speed_title"
+        app:layout_constraintStart_toEndOf="@id/tv_speed_title"
+        app:layout_constraintTop_toTopOf="@id/tv_speed_title" />
+
+    <TextView
+        android:id="@+id/tv_pitch_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="语音播放音调："
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_speed_title" />
+
+    <Spinner
+        android:id="@+id/pitch_spinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg_item_list"
+        app:layout_constraintBottom_toBottomOf="@id/tv_pitch_title"
+        app:layout_constraintStart_toEndOf="@id/tv_pitch_title"
+        app:layout_constraintTop_toTopOf="@id/tv_pitch_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -55,6 +76,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_speed_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_pitch_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -110,10 +110,11 @@ class MainActivity : ComponentActivity() {
         viewModel.getData()
 
         initSpeedSpinner()
+        initPitchSpinner()
     }
 
     private fun initSpeedSpinner() {
-        val adapter = SpeedSpinnerAdapter(this, getSpeedData())
+        val adapter = MySpinnerAdapter(this, getSpeedRateData())
         binding.speedSpinner.apply {
             this.adapter = adapter
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -123,20 +124,49 @@ class MainActivity : ComponentActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    val selectedItem = parent.getItemAtPosition(position).toString().toFloat()
-                    textToSpeech?.setSpeechRate(selectedItem)
+                    val speedValue = parent.getItemAtPosition(position).toString().toFloat()
+                    textToSpeech?.setSpeechRate(speedValue)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // 未选择任何项时的回调
                 }
             }
-            setSelection(1)
+            setSelection(2)
         }
     }
 
-    private fun getSpeedData(): List<Float> {
-        return listOf(0.5f, 1f, 1.5f, 2f, 3f)
+    private fun getSpeedRateData(): List<Float> {
+        // 倍速没有明确的上下限
+        return listOf(0.5f, 0.75f, 1f, 1.25f, 1.5f, 2f, 3f)
+    }
+
+    private fun initPitchSpinner() {
+        val adapter = MySpinnerAdapter(this, getPitchData())
+        binding.pitchSpinner.apply {
+            this.adapter = adapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val pitchValue = parent.getItemAtPosition(position).toString().toFloat()
+                    textToSpeech?.setPitch(pitchValue)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // 未选择任何项时的回调
+                }
+            }
+            setSelection(2)
+        }
+    }
+
+    private fun getPitchData(): List<Float> {
+        // 音调的取值范围是 0.5 到 2.0
+        return listOf(0.5f, 0.75f, 1f, 1.25f, 1.5f, 2f)
     }
 
     private fun identifyPossibleLanguages(content: String) {
@@ -192,7 +222,7 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 
-    class SpeedSpinnerAdapter(private val context: Context, private val itemList: List<Float>) : BaseAdapter() {
+    class MySpinnerAdapter(private val context: Context, private val itemList: List<Float>) : BaseAdapter() {
 
         override fun getCount(): Int {
             return itemList.size
