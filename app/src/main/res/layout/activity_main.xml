@@ -40,55 +40,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_support_languages" />
 
-    <TextView
-        android:id="@+id/tv_speed1"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="0.5"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_speed_title" />
-
-    <TextView
-        android:id="@+id/tv_speed2"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
+    <Spinner
+        android:id="@+id/speed_spinner"
+        app:layout_constraintStart_toEndOf="@id/tv_speed_title"
+        app:layout_constraintTop_toTopOf="@id/tv_speed_title"
+        app:layout_constraintBottom_toBottomOf="@id/tv_speed_title"
+        android:layout_width="100dp"
         android:background="@drawable/shape_bg_item_list"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/tv_speed1"
-        app:layout_constraintTop_toTopOf="@id/tv_speed1" />
-
-    <TextView
-        android:id="@+id/tv_speed3"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="1.5"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/tv_speed2"
-        app:layout_constraintTop_toTopOf="@id/tv_speed2" />
-
-    <TextView
-        android:id="@+id/tv_speed4"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="2"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/tv_speed3"
-        app:layout_constraintTop_toTopOf="@id/tv_speed3" />
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -96,6 +55,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_speed1" />
+        app:layout_constraintTop_toBottomOf="@id/tv_speed_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

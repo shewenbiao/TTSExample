@@ -1,7 +1,14 @@
 package com.example.tts
 
+import android.content.Context
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.BaseAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -102,41 +109,34 @@ class MainActivity : ComponentActivity() {
 
         viewModel.getData()
 
-        binding.tvSpeed1.setOnClickListener {
-            it.setBackgroundResource(R.drawable.shape_bg_item_list)
-            binding.tvSpeed2.setBackgroundDrawable(null)
-            binding.tvSpeed3.setBackgroundDrawable(null)
-            binding.tvSpeed4.setBackgroundDrawable(null)
+        initSpeedSpinner()
+    }
 
-            textToSpeech?.setSpeechRate(binding.tvSpeed1.text.toString().toFloat())
+    private fun initSpeedSpinner() {
+        val adapter = SpeedSpinnerAdapter(this, getSpeedData())
+        binding.speedSpinner.apply {
+            this.adapter = adapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = parent.getItemAtPosition(position).toString().toFloat()
+                    textToSpeech?.setSpeechRate(selectedItem)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // 未选择任何项时的回调
+                }
+            }
+            setSelection(1)
         }
+    }
 
-        binding.tvSpeed2.setOnClickListener {
-            it.setBackgroundResource(R.drawable.shape_bg_item_list)
-            binding.tvSpeed1.setBackgroundDrawable(null)
-            binding.tvSpeed3.setBackgroundDrawable(null)
-            binding.tvSpeed4.setBackgroundDrawable(null)
-
-            textToSpeech?.setSpeechRate(binding.tvSpeed2.text.toString().toFloat())
-        }
-
-        binding.tvSpeed3.setOnClickListener {
-            it.setBackgroundResource(R.drawable.shape_bg_item_list)
-            binding.tvSpeed1.setBackgroundDrawable(null)
-            binding.tvSpeed2.setBackgroundDrawable(null)
-            binding.tvSpeed4.setBackgroundDrawable(null)
-
-            textToSpeech?.setSpeechRate(binding.tvSpeed3.text.toString().toFloat())
-        }
-
-        binding.tvSpeed4.setOnClickListener {
-            it.setBackgroundResource(R.drawable.shape_bg_item_list)
-            binding.tvSpeed1.setBackgroundDrawable(null)
-            binding.tvSpeed2.setBackgroundDrawable(null)
-            binding.tvSpeed3.setBackgroundDrawable(null)
-
-            textToSpeech?.setSpeechRate(binding.tvSpeed4.text.toString().toFloat())
-        }
+    private fun getSpeedData(): List<Float> {
+        return listOf(0.5f, 1f, 1.5f, 2f, 3f)
     }
 
     private fun identifyPossibleLanguages(content: String) {
@@ -191,4 +191,62 @@ class MainActivity : ComponentActivity() {
         }
         super.onDestroy()
     }
+
+    class SpeedSpinnerAdapter(private val context: Context, private val itemList: List<Float>) : BaseAdapter() {
+
+        override fun getCount(): Int {
+            return itemList.size
+        }
+
+        override fun getItem(position: Int): Any {
+            return itemList[position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view: View
+            val viewHolder: ViewHolder
+
+            if (convertView == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.custom_spinner_item, parent, false)
+                viewHolder = ViewHolder(view)
+                view.tag = viewHolder
+            } else {
+                view = convertView
+                viewHolder = convertView.tag as ViewHolder
+            }
+
+            val item = itemList[position]
+            viewHolder.textView.text = item.toString()
+
+            return view
+        }
+
+        override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view: View
+            val viewHolder: ViewHolder
+
+            if (convertView == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.custom_spinner_dropdown_item, parent, false)
+                viewHolder = ViewHolder(view)
+                view.tag = viewHolder
+            } else {
+                view = convertView
+                viewHolder = convertView.tag as ViewHolder
+            }
+
+            val item = itemList[position]
+            viewHolder.textView.text = item.toString()
+
+            return view
+        }
+
+        private class ViewHolder(view: View) {
+            val textView: TextView = view.findViewById(R.id.textView)
+        }
+    }
+
 }
